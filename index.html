@@ -1,0 +1,1635 @@
+<!doctype html>
+<html lang="fr">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide Complet d'Installation Cabinet Médical</title>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    html {
+      height: 100%;
+    }
+    
+    .nav-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section-card {
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #3b82f6;
+    }
+    
+    .section-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(59, 130, 246, 0.2);
+    }
+    
+    .step-number {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+    }
+    
+    .timeline-line {
+      position: absolute;
+      left: 25px;
+      top: 60px;
+      bottom: -20px;
+      width: 2px;
+      background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+    }
+    
+    .category-card {
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      position: relative;
+    }
+    
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      border-radius: 8px 8px 0 0;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+    }
+    
+    .input-field {
+      transition: all 0.2s ease;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    .btn-3d {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06), inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+    }
+    
+    .btn-3d:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1), inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-3d:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hero-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+    }
+    
+    .total-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .checklist-item {
+      padding: 12px;
+      border-left: 3px solid #3b82f6;
+      background: #eff6ff;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    
+    .checklist-item:hover {
+      background: #dbeafe;
+      border-left-width: 5px;
+    }
+    
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-left: 4px solid #f59e0b;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="bg-gradient-to-br from-blue-50 to-indigo-100 smooth-scroll">
+  <script>
+    const defaultConfig = {
+      background_color: "#eff6ff",
+      surface_color: "#ffffff",
+      text_color: "#1e293b",
+      primary_action_color: "#3b82f6",
+      secondary_action_color: "#64748b",
+      font_family: "system-ui",
+      font_size: 16,
+      titre_principal: "Guide Complet d'Installation Cabinet Médical",
+      sous_titre: "Du conventionnement à la première facturation : votre parcours complet"
+    };
+
+    let currentData = [];
+
+    const categories = {
+      loyer: {
+        nom: "Loyer et Charges",
+        icon: "",
+        items: [
+          { id: "loyer_mensuel", label: "Loyer mensuel", unite: "€/mois", defaut: 0 },
+          { id: "charges_copro", label: "Charges de copropriété", unite: "€/mois", defaut: 0 },
+          { id: "depot_garantie", label: "Dépôt de garantie", unite: "€", defaut: 0 },
+          { id: "frais_agence", label: "Frais d'agence", unite: "€", defaut: 0 }
+        ]
+      },
+      travaux: {
+        nom: "Travaux et Aménagement",
+        icon: "",
+        items: [
+          { id: "travaux_peinture", label: "Peinture et décoration", unite: "€", defaut: 0 },
+          { id: "travaux_electricite", label: "Électricité", unite: "€", defaut: 0 },
+          { id: "travaux_plomberie", label: "Plomberie", unite: "€", defaut: 0 },
+          { id: "travaux_cloisons", label: "Cloisons et aménagement", unite: "€", defaut: 0 },
+          { id: "travaux_sol", label: "Revêtement de sol", unite: "€", defaut: 0 },
+          { id: "travaux_accessibilite", label: "Mise aux normes accessibilité", unite: "€", defaut: 0 }
+        ]
+      },
+      materiel_medical: {
+        nom: "Matériel Médical",
+        icon: "",
+        items: [
+          { id: "table_examen", label: "Table d'examen", unite: "€", defaut: 0 },
+          { id: "tensiometre", label: "Tensiomètre", unite: "€", defaut: 0 },
+          { id: "stethoscope", label: "Stéthoscope", unite: "€", defaut: 0 },
+          { id: "otoscope", label: "Otoscope", unite: "€", defaut: 0 },
+          { id: "materiel_specialise", label: "Matériel spécialisé", unite: "€", defaut: 0 },
+          { id: "materiel_specialiste", label: "Matériel spécifique spécialiste", unite: "€", defaut: 0 }
+        ]
+      },
+      informatique: {
+        nom: "Informatique et Numérique",
+        icon: "",
+        items: [
+          { id: "ordinateur", label: "Ordinateur(s)", unite: "€", defaut: 0 },
+          { id: "imprimante", label: "Imprimante", unite: "€", defaut: 0 },
+          { id: "tablette", label: "Tablette", unite: "€", defaut: 0 },
+          { id: "serveur_nas", label: "Serveur/NAS", unite: "€", defaut: 0 },
+          { id: "materiel_reseau", label: "Matériel réseau", unite: "€", defaut: 0 }
+        ]
+      },
+      logiciels: {
+        nom: "Logiciels Médicaux",
+        icon: "",
+        items: [
+          { id: "logiciel_gestion", label: "Logiciel de gestion", unite: "€/an", defaut: 0 },
+          { id: "logiciel_compta", label: "Logiciel comptabilité", unite: "€/an", defaut: 0 },
+          { id: "option_diagnostic_ia", label: "Option diagnostic IA", unite: "€/an", defaut: 0 },
+          { id: "option_teleconsultation", label: "Option téléconsultation", unite: "€/an", defaut: 0 },
+          { id: "sauvegarde_cloud", label: "Sauvegarde cloud", unite: "€/an", defaut: 0 }
+        ]
+      },
+      abonnements: {
+        nom: "Abonnements",
+        icon: "",
+        items: [
+          { id: "internet", label: "Internet", unite: "€/mois", defaut: 0 },
+          { id: "telephone", label: "Téléphone", unite: "€/mois", defaut: 0 },
+          { id: "plateforme_rdv", label: "Plateforme RDV en ligne", unite: "€/mois", defaut: 0 },
+          { id: "electricite", label: "Électricité", unite: "€/mois", defaut: 0 },
+          { id: "eau", label: "Eau", unite: "€/mois", defaut: 0 },
+          { id: "assurance", label: "Assurance professionnelle", unite: "€/an", defaut: 0 }
+        ]
+      },
+      mobilier: {
+        nom: "Mobilier",
+        icon: "",
+        items: [
+          { id: "bureau", label: "Bureau", unite: "€", defaut: 0 },
+          { id: "chaises", label: "Chaises", unite: "€", defaut: 0 },
+          { id: "armoires", label: "Armoires/Rangements", unite: "€", defaut: 0 },
+          { id: "salle_attente", label: "Mobilier salle d'attente", unite: "€", defaut: 0 }
+        ]
+      },
+      consommables: {
+        nom: "Consommables",
+        icon: "",
+        items: [
+          { id: "gants", label: "Gants", unite: "€/mois", defaut: 0 },
+          { id: "masques", label: "Masques", unite: "€/mois", defaut: 0 },
+          { id: "desinfectant", label: "Désinfectant", unite: "€/mois", defaut: 0 },
+          { id: "papier", label: "Papier/Fournitures bureau", unite: "€/mois", defaut: 0 },
+          { id: "ordonnances", label: "Ordonnances", unite: "€/mois", defaut: 0 }
+        ]
+      },
+      prestataires: {
+        nom: "Prestataires",
+        icon: "",
+        items: [
+          { id: "comptable", label: "Expert-comptable", unite: "€/an", defaut: 0 },
+          { id: "secretariat", label: "Secrétariat médical", unite: "€/mois", defaut: 0 },
+          { id: "menage", label: "Ménage", unite: "€/mois", defaut: 0 },
+          { id: "maintenance", label: "Maintenance informatique", unite: "€/an", defaut: 0 }
+        ]
+      }
+    };
+
+    const dataHandler = {
+      onDataChanged(data) {
+        currentData = data;
+        renderSimulations();
+      }
+    };
+
+    async function initApp() {
+      // FIX: Check if dataSdk exists before calling init
+      if (window.dataSdk) {
+        const initResult = await window.dataSdk.init(dataHandler);
+        if (!initResult.isOk) {
+          console.error("Erreur d'initialisation dataSdk");
+        }
+      } else {
+        console.error("dataSdk not found. Make sure /_sdk/data_sdk.js is loaded.");
+      }
+      
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (config) => {
+            const body = document.body;
+            const customFont = config.font_family || defaultConfig.font_family;
+            const baseSize = config.font_size || defaultConfig.font_size;
+            const baseFontStack = 'system-ui, -apple-system, sans-serif';
+            
+            body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+            body.style.background = `linear-gradient(135deg, ${config.background_color || defaultConfig.background_color} 0%, ${config.primary_action_color || defaultConfig.primary_action_color}30 50%, ${config.background_color || defaultConfig.background_color} 100%)`;
+            
+            const titrePrincipal = document.getElementById('titre-principal');
+            if (titrePrincipal) {
+              titrePrincipal.textContent = config.titre_principal || defaultConfig.titre_principal;
+              titrePrincipal.style.fontSize = `${baseSize * 2.5}px`;
+            }
+            
+            const sousTitre = document.getElementById('sous-titre');
+            if (sousTitre) {
+              sousTitre.textContent = config.sous_titre || defaultConfig.sous_titre;
+              sousTitre.style.fontSize = `${baseSize * 1.25}px`;
+            }
+            
+            const cards = document.querySelectorAll('.category-card, .section-card');
+            cards.forEach(card => {
+              card.style.backgroundColor = config.surface_color || defaultConfig.surface_color;
+            });
+            
+            const labels = document.querySelectorAll('.label-text');
+            labels.forEach(label => {
+              label.style.fontSize = `${baseSize * 0.875}px`;
+              label.style.color = '#2563eb';
+            });
+            
+            const categoryTitles = document.querySelectorAll('.category-title');
+            categoryTitles.forEach(title => {
+              title.style.fontSize = `${baseSize * 1.25}px`;
+              title.style.color = '#1d4ed8';
+            });
+            
+            const buttons = document.querySelectorAll('.btn-primary');
+            buttons.forEach(btn => {
+              btn.style.backgroundColor = config.primary_action_color || defaultConfig.primary_action_color;
+              btn.style.fontSize = `${baseSize}px`;
+            });
+            
+            const secondaryButtons = document.querySelectorAll('.btn-secondary');
+            secondaryButtons.forEach(btn => {
+              btn.style.backgroundColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+              btn.style.fontSize = `${baseSize * 0.875}px`;
+            });
+          },
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              {
+                get: () => config.background_color || defaultConfig.background_color,
+                set: (value) => {
+                  window.elementSdk.config.background_color = value;
+                  window.elementSdk.setConfig({ background_color: value });
+                }
+              },
+              {
+                get: () => config.surface_color || defaultConfig.surface_color,
+                set: (value) => {
+                  window.elementSdk.config.surface_color = value;
+                  window.elementSdk.setConfig({ surface_color: value });
+                }
+              },
+              {
+                get: () => config.text_color || defaultConfig.text_color,
+                set: (value) => {
+                  window.elementSdk.config.text_color = value;
+                  window.elementSdk.setConfig({ text_color: value });
+                }
+              },
+              {
+                get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                set: (value) => {
+                  window.elementSdk.config.primary_action_color = value;
+                  window.elementSdk.setConfig({ primary_action_color: value });
+                }
+              },
+              {
+                get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                set: (value) => {
+                  window.elementSdk.config.secondary_action_color = value;
+                  window.elementSdk.setConfig({ secondary_action_color: value });
+                }
+              }
+            ],
+            borderables: [],
+            fontEditable: {
+              get: () => config.font_family || defaultConfig.font_family,
+              set: (value) => {
+                window.elementSdk.config.font_family = value;
+                window.elementSdk.setConfig({ font_family: value });
+              }
+            },
+            fontSizeable: {
+              get: () => config.font_size || defaultConfig.font_size,
+              set: (value) => {
+                window.elementSdk.config.font_size = value;
+                window.elementSdk.setConfig({ font_size: value });
+              }
+            }
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ["titre_principal", config.titre_principal || defaultConfig.titre_principal],
+            ["sous_titre", config.sous_titre || defaultConfig.sous_titre]
+          ])
+        });
+      } else {
+        // ADDED: Log error if elementSdk is also missing
+        console.error("elementSdk not found. Make sure /_sdk/element_sdk.js is loaded.");
+      }
+      
+      renderPage();
+      calculateCA();
+    }
+
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function renderPage() {
+      const container = document.getElementById('main-container');
+      
+      container.innerHTML = `
+        <!-- Navigation -->
+        <nav class="nav-sticky">
+          <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <img src="https://elodiatech.com/wp-content/uploads/2023/11/elodia-tech-LOGO-B-1536x1152.png" 
+                     alt="Elodia Tech" 
+                     class="h-12 w-auto"
+                     onerror="this.style.display='none';">
+                <span class="text-xl font-bold text-blue-700">Guide Installation</span>
+              </div>
+              <div class="hidden md:flex gap-4">
+                <button onclick="scrollToSection('etapes')" class="text-blue-600 hover:text-blue-800 font-medium">Étapes</button>
+                <button onclick="scrollToSection('calculateur')" class="text-blue-600 hover:text-blue-800 font-medium">Calculateur</button>
+                <button onclick="scrollToSection('contact')" class="text-blue-600 hover:text-blue-800 font-medium">Contact</button>
+                <button onclick="scrollToSection('partenaires')" class="text-blue-600 hover:text-blue-800 font-medium">Partenaires</button>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section py-20 relative">
+          <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
+            <h1 id="titre-principal" class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-2xl">${defaultConfig.titre_principal}</h1>
+            <p id="sous-titre" class="text-lg sm:text-xl md:text-2xl text-white/95 mb-8 drop-shadow-lg">${defaultConfig.sous_titre}</p>
+            <button onclick="scrollToSection('etapes')" class="btn-3d bg-white text-purple-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-50">
+              Commencer le guide
+            </button>
+          </div>
+        </section>
+
+        <!-- Introduction -->
+        <section class="max-w-7xl mx-auto px-6 py-12">
+          <div class="section-card bg-white rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold text-blue-700 mb-4">Bienvenue dans votre guide d'installation complet</h2>
+            <p class="text-lg text-blue-600 mb-4">
+              L'installation en tant que médecin libéral est une aventure passionnante qui nécessite une préparation minutieuse. 
+              Ce guide vous accompagne à travers <strong>toutes les étapes essentielles</strong>, du conventionnement jusqu'à votre première facturation.
+            </p>
+            <p class="text-lg text-blue-600 mb-4">
+              Nous couvrons l'intégralité du parcours : administratif, financier, juridique, technique et organisationnel, 
+              avec un focus particulier sur les démarches de conventionnement et le système de facturation.
+            </p>
+            <div class="highlight-box">
+              <p class="font-bold text-amber-900 mb-2">Durée totale estimée : 6 à 12 mois</p>
+              <p class="text-amber-800">Budget moyen : 50 000€ à 150 000€ selon la spécialité et la localisation</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Étapes d'installation -->
+        <section id="etapes" class="max-w-7xl mx-auto px-6 py-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-center text-blue-700 mb-12">Les 18 Étapes Complètes de Votre Installation</h2>
+          
+          <div class="space-y-8">
+            <!-- Étape 1 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">1</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Définition du Projet</h3>
+                <p class="text-blue-600 mb-4">Clarifiez votre vision et vos objectifs professionnels.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Choix de la spécialité et du mode d'exercice</div>
+                  <div class="checklist-item">✓ Définition de votre patientèle cible</div>
+                  <div class="checklist-item">✓ Étude de marché locale</div>
+                  <div class="checklist-item">✓ Analyse de la démographie médicale</div>
+                  <div class="checklist-item">✓ Évaluation de la concurrence</div>
+                  <div class="checklist-item">✓ Choix entre secteur 1 et secteur 2</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 2 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">2</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Recherche du Local</h3>
+                <p class="text-blue-600 mb-4">Trouvez l'emplacement idéal pour votre cabinet.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Définition des critères de localisation</div>
+                  <div class="checklist-item">✓ Accessibilité et stationnement</div>
+                  <div class="checklist-item">✓ Surface et agencement (minimum 40-50m²)</div>
+                  <div class="checklist-item">✓ Vérification des normes d'accessibilité PMR</div>
+                  <div class="checklist-item">✓ Négociation du bail commercial ou professionnel</div>
+                  <div class="checklist-item">✓ État des lieux et diagnostics obligatoires (amiante, plomb, DPE)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 3 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">3</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Choix du Statut Juridique</h3>
+                <p class="text-blue-600 mb-4">Sélectionnez la structure juridique adaptée à votre situation.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Entreprise individuelle (EI) - Simple et rapide</div>
+                  <div class="checklist-item">✓ EIRL (Entreprise Individuelle à Responsabilité Limitée)</div>
+                  <div class="checklist-item">✓ SELARL (Société d'Exercice Libéral à Responsabilité Limitée)</div>
+                  <div class="checklist-item">✓ SEL (Société d'Exercice Libéral)</div>
+                  <div class="checklist-item">✓ SCM (Société Civile de Moyens) pour partage de frais</div>
+                  <div class="checklist-item">✓ Consultation avec un expert-comptable spécialisé</div>
+                  <div class="checklist-item">✓ Rédaction des statuts si société</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 4 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">4</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Inscription à l'Ordre des Médecins</h3>
+                <p class="text-blue-600 mb-4">Étape obligatoire avant toute installation.</p>
+                <div class="highlight-box mb-4">
+                  <p class="font-bold text-amber-900">Délai : 2 à 4 semaines</p>
+                </div>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Constitution du dossier d'inscription</div>
+                  <div class="checklist-item">✓ Diplôme de docteur en médecine</div>
+                  <div class="checklist-item">✓ Justificatif d'identité et de nationalité</div>
+                  <div class="checklist-item">✓ Certificat de moralité</div>
+                  <div class="checklist-item">✓ Déclaration sur l'honneur</div>
+                  <div class="checklist-item">✓ Obtention du numéro RPPS (Répertoire Partagé des Professionnels de Santé)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 5 : CONVENTIONNEMENT -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0" style="background: linear-gradient(135deg, #f59e0b, #d97706);">5</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6" style="border-left: 4px solid #f59e0b;">
+                <h3 class="text-2xl font-bold text-amber-700 mb-3">CONVENTIONNEMENT avec l'Assurance Maladie</h3>
+                <p class="text-amber-600 mb-4 font-semibold">ÉTAPE CRUCIALE pour être remboursé par la Sécurité Sociale</p>
+                <div class="highlight-box mb-4">
+                  <p class="font-bold text-amber-900 mb-2">Délai : 1 à 2 mois</p>
+                  <p class="text-amber-800">Contact : CPAM de votre département</p>
+                </div>
+                <div class="space-y-2">
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Demande de conventionnement auprès de la CPAM</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ <strong>Secteur 1</strong> : Tarifs conventionnés (25€ consultation généraliste)</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ <strong>Secteur 2</strong> : Honoraires libres avec dépassements</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Signature de la convention médicale nationale</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Adhésion OPTAM/OPTAM-CO (pour secteur 2 - meilleurs remboursements)</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Engagement de respect des tarifs et bonnes pratiques</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Obtention du numéro AM (Assurance Maladie)</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Activation du compte amelipro</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fffbeb;">✓ <strong>Note DOM-TOM :</strong> Votre interlocuteur principal sera la <strong>CGSS</strong> (Caisse Générale de Sécurité Sociale) qui remplace la CPAM.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 6 : CARTE CPS -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0" style="background: linear-gradient(135deg, #f59e0b, #d97706);">6</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6" style="border-left: 4px solid #f59e0b;">
+                <h3 class="text-2xl font-bold text-amber-700 mb-3">Obtention de la Carte CPS</h3>
+                <p class="text-amber-600 mb-4 font-semibold">Votre sésame pour la télétransmission et la facturation</p>
+                <div class="highlight-box mb-4">
+                  <p class="font-bold text-amber-900 mb-2">Délai : 2 à 3 semaines</p>
+                  <p class="text-amber-800">Commande sur le site de l'ANS (Agence du Numérique en Santé)</p>
+                </div>
+                <div class="space-y-2">
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Demande de Carte de Professionnel de Santé (CPS)</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Commande sur le portail CPS de l'ANS</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Réception de la carte par courrier sécurisé</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Activation de la carte CPS avec code PIN</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Achat d'un lecteur de carte CPS (150€ à 400€)</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Installation des certificats électroniques</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Test de la télétransmission</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 7 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">7</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Plan de Financement</h3>
+                <p class="text-blue-600 mb-4">Établissez votre budget et trouvez les financements nécessaires.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Estimation des coûts d'installation (50 000€ à 150 000€)</div>
+                  <div class="checklist-item">✓ Prévisionnel financier sur 3 ans</div>
+                  <div class="checklist-item">✓ Apport personnel (20-30% du projet)</div>
+                  <div class="checklist-item">✓ Prêt bancaire professionnel</div>
+                  <div class="checklist-item">✓ Aides CPAM (jusqu'à 50 000€ en zone sous-dotée)</div>
+                  <div class="checklist-item">✓ Aides ARS et collectivités locales</div>
+                  <div class="checklist-item">✓ <strong>Aides Spécifiques DOM-TOM (ZFA) :</strong> En Martinique, Guadeloupe, etc., vous pouvez être éligible aux <strong>Zones Franches d'Activité (ZFA)</strong>, offrant des exonérations d'impôt sur les bénéfices.</div>
+                  <div class="checklist-item">✓ <strong>Autres Aides (DOM-TOM) :</strong> Renseignez-vous sur le CAIM (Contrat d'Aide à l'Installation), COSCOM, et CDE auprès de votre CGSS/ARS.</div>
+                  <div class="checklist-item">✓ Contrat de prévoyance et assurances</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 8 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">8</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Démarches Administratives Complémentaires</h3>
+                <p class="text-blue-600 mb-4">Accomplissez toutes les formalités légales.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Déclaration d'activité à l'URSSAF</div>
+                  <div class="checklist-item">✓ Adhésion à la CARMF (Caisse de retraite)</div>
+                  <div class="checklist-item">✓ Adhésion à une AGA (Association de Gestion Agréée)</div>
+                  <div class="checklist-item">✓ Déclaration CNIL pour données patients (DPO si nécessaire)</div>
+                  <div class="checklist-item">✓ Ouverture d'un compte bancaire professionnel</div>
+                  <div class="checklist-item">✓ Souscription RC Pro (Responsabilité Civile Professionnelle)</div>
+                  <div class="checklist-item">✓ Immatriculation au répertoire SIRENE (SIRET)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 9 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">9</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Travaux et Aménagement</h3>
+                <p class="text-blue-600 mb-4">Transformez votre local en cabinet médical fonctionnel.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Plans d'aménagement et architecture</div>
+                  <div class="checklist-item">✓ Salle de consultation (minimum 12m²)</div>
+                  <div class="checklist-item">✓ Salle d'attente confortable (minimum 15m²)</div>
+                  <div class="checklist-item">✓ Sanitaires aux normes PMR</div>
+                  <div class="checklist-item">✓ Installation électrique et éclairage</div>
+                  <div class="checklist-item">✓ Plomberie et climatisation</div>
+                  <div class="checklist-item">✓ Signalétique extérieure et intérieure</div>
+                  <div class="checklist-item">✓ Respect des normes ERP (Établissement Recevant du Public)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 10 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">10</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Équipement Médical</h3>
+                <p class="text-blue-600 mb-4">Acquérez le matériel médical nécessaire à votre pratique.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Table d'examen (800€ à 3000€)</div>
+                  <div class="checklist-item">✓ Stéthoscope (50€ à 300€)</div>
+                  <div class="checklist-item">✓ Tensiomètre (100€ à 500€)</div>
+                  <div class="checklist-item">✓ Otoscope (150€ à 600€)</div>
+                  <div class="checklist-item">✓ Matériel spécifique à votre spécialité</div>
+                  <div class="checklist-item">✓ Armoire à pharmacie et médicaments d'urgence</div>
+                  <div class="checklist-item">✓ Matériel de stérilisation</div>
+                  <div class="checklist-item">✓ Consommables médicaux (gants, masques, désinfectant)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 11 : SYSTÈME DE FACTURATION -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0" style="background: linear-gradient(135deg, #f59e0b, #d97706);">11</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6" style="border-left: 4px solid #f59e0b;">
+                <h3 class="text-2xl font-bold text-amber-700 mb-3">Informatique et Système de Facturation</h3>
+                <p class="text-amber-600 mb-4 font-semibold">Infrastructure essentielle pour la télétransmission</p>
+                <div class="space-y-2">
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Ordinateur(s) professionnel(s) (800€ à 2000€)</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ <strong>Logiciel de gestion certifié</strong> (1000€ à 3000€/an)</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ <strong>Lecteur de carte Vitale</strong> (150€ à 400€) - OBLIGATOIRE</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ <strong>Lecteur de carte CPS</strong> - OBLIGATOIRE</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Imprimante pour ordonnances et FSE papier</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Système de prise de rendez-vous en ligne</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Connexion internet sécurisée (fibre recommandée)</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Sauvegarde des données (RGPD) - Cloud sécurisé HDS</div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ <strong>Configuration de la télétransmission FSE</strong></div>
+                  <div class="checklist-item" style="border-left-color: #f59e0b; background: #fef3c7;">✓ Test de connexion au réseau SESAM-Vitale</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 12 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">12</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Mobilier et Décoration</h3>
+                <p class="text-blue-600 mb-4">Créez un environnement accueillant et professionnel.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Bureau médical (300€ à 1500€)</div>
+                  <div class="checklist-item">✓ Fauteuil ergonomique (200€ à 800€)</div>
+                  <div class="checklist-item">✓ Mobilier salle d'attente (1000€ à 3000€)</div>
+                  <div class="checklist-item">✓ Armoires et rangements médicaux</div>
+                  <div class="checklist-item">✓ Décoration et ambiance apaisante</div>
+                  <div class="checklist-item">✓ Plantes et éléments de confort</div>
+                  <div class="checklist-item">✓ Documentation patient et affiches santé</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 13 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">13</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Assurances et Protection</h3>
+                <p class="text-blue-600 mb-4">Protégez votre activité et votre patrimoine.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ RC Pro (Responsabilité Civile Professionnelle) - OBLIGATOIRE (1500€ à 5000€/an)</div>
+                  <div class="checklist-item">✓ Assurance multirisque des locaux</div>
+                  <div class="checklist-item">✓ Assurance du matériel médical</div>
+                  <div class="checklist-item">✓ Prévoyance (arrêt de travail, invalidité, décès)</div>
+                  <div class="checklist-item">✓ Retraite complémentaire CARMF</div>
+                  <div class="checklist-item">✓ Protection juridique professionnelle</div>
+                  <div class="checklist-item">✓ Cyber-assurance (protection données)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 14 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">14</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Tests et Formation</h3>
+                <p class="text-blue-600 mb-4">Testez tous vos systèmes avant l'ouverture.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Test du lecteur de carte Vitale</div>
+                  <div class="checklist-item">✓ Test de la télétransmission avec la CPAM</div>
+                  <div class="checklist-item">✓ Formation au logiciel de gestion</div>
+                  <div class="checklist-item">✓ Test de facturation à blanc</div>
+                  <div class="checklist-item">✓ Vérification des connexions sécurisées</div>
+                  <div class="checklist-item">✓ Test du système de prise de RDV</div>
+                  <div class="checklist-item">✓ Formation RGPD et protection des données</div>
+                  <div class="checklist-item">✓ Simulation de consultation complète</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 15 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">15</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Communication et Visibilité</h3>
+                <p class="text-blue-600 mb-4">Faites connaître votre cabinet et attirez vos premiers patients.</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Création d'un site web professionnel</div>
+                  <div class="checklist-item">✓ Inscription sur Doctolib, Maiia, Keldoc</div>
+                  <div class="checklist-item">✓ <strong>Note DOM-TOM :</strong> Pensez aux plateformes locales populaires comme <strong>Clikodoc</strong>.</div>
+                  <div class="checklist-item">✓ Inscription annuaires : Pages Jaunes, 118 712</div>
+                  <div class="checklist-item">✓ Fiche Google My Business</div>
+                  <div class="checklist-item">✓ Cartes de visite professionnelles</div>
+                  <div class="checklist-item">✓ Plaque professionnelle extérieure</div>
+                  <div class="checklist-item">✓ Réseau professionnel (confrères, pharmacies, infirmiers)</div>
+                  <div class="checklist-item">✓ Respect de la déontologie médicale en communication</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 16 -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0">16</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6">
+                <h3 class="text-2xl font-bold text-blue-700 mb-3">Ouverture du Cabinet</h3>
+                <p class="text-blue-600 mb-4">Lancez officiellement votre activité !</p>
+                <div class="space-y-2">
+                  <div class="checklist-item">✓ Vérification finale de tous les équipements</div>
+                  <div class="checklist-item">✓ Ouverture de l'agenda aux rendez-vous</div>
+                  <div class="checklist-item">✓ Annonce de l'ouverture (réseaux, confrères)</div>
+                  <div class="checklist-item">✓ Préparation des documents administratifs</div>
+                  <div class="checklist-item">✓ Stock de consommables et médicaments</div>
+                  <div class="checklist-item">✓ Organisation du planning</div>
+                  <div class="checklist-item">✓ Accueil des premiers patients</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 17 : PREMIÈRE CONSULTATION -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0" style="background: linear-gradient(135deg, #10b981, #059669);">17</div>
+              <div class="timeline-line hidden md:block"></div>
+              <div class="section-card bg-white rounded-xl p-6" style="border-left: 4px solid #10b981;">
+                <h3 class="text-2xl font-bold text-green-700 mb-3">PREMIÈRE CONSULTATION</h3>
+                <p class="text-green-600 mb-4 font-semibold">Réalisez votre première consultation dans les règles de l'art</p>
+                <div class="space-y-2">
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Accueil du patient et vérification identité</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ <strong>Lecture de la carte Vitale</strong></div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Création du dossier patient dans le logiciel</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Anamnèse et examen clinique</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Rédaction de l'ordonnance si nécessaire</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Création de la Feuille de Soins Électronique (FSE)</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Saisie des actes et cotations (C, CS, CCAM)</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Encaissement (espèces, CB, chèque, tiers payant)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Étape 18 : PREMIÈRE FACTURATION -->
+            <div class="relative pt-16 md:pt-0 md:pl-20">
+              <div class="step-number absolute left-1/2 -translate-x-1/2 top-0 md:left-0 md:top-0 md:-translate-x-0" style="background: linear-gradient(135deg, #10b981, #059669);">18</div>
+              <div class="section-card bg-white rounded-xl p-6" style="border-left: 4px solid #10b981;">
+                <h3 class="text-2xl font-bold text-green-700 mb-3">PREMIÈRE FACTURATION et Télétransmission</h3>
+                <p class="text-green-600 mb-4 font-semibold">Finalisez le cycle avec votre première facturation officielle !</p>
+                <div class="highlight-box mb-4" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-left-color: #10b981;">
+                  <p class="font-bold text-green-900 mb-2">Processus de Facturation Électronique</p>
+                  <p class="text-green-800">La FSE (Feuille de Soins Électronique) remplace le formulaire papier</p>
+                </div>
+                <div class="space-y-2">
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Vérification des informations patient</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ <strong>Validation de la FSE</strong> (Feuille de Soins Électronique)</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ <strong>Signature électronique avec la carte CPS</strong></div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ <strong>Télétransmission à la CPAM</strong> via SESAM-Vitale</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Remise du justificatif au patient</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Gestion du tiers payant si applicable</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Suivi des paiements et rejets éventuels</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Comptabilisation dans le logiciel</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ Archivage sécurisé des données (RGPD)</div>
+                  <div class="checklist-item" style="border-left-color: #10b981; background: #d1fae5;">✓ <strong>Félicitations ! Vous êtes officiellement installé !</strong></div>
+                </div>
+                <div class="highlight-box mt-4" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-left-color: #10b981;">
+                  <p class="font-bold text-green-900 mb-2">Délai de Paiement</p>
+                  <p class="text-green-800">La CPAM verse les honoraires sous 5 à 7 jours après télétransmission</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section Récapitulatif Timeline -->
+          <div class="mt-12 section-card bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-8">
+            <h3 class="text-2xl font-bold text-blue-700 mb-6 text-center">Timeline Récapitulatif</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h4 class="font-bold text-blue-600 mb-3">Phase Préparatoire (3-6 mois)</h4>
+                <ul class="space-y-2 text-sm text-blue-700">
+                  <li>• Définition du projet et étude de marché</li>
+                  <li>• Recherche du local</li>
+                  <li>• Choix du statut juridique</li>
+                  <li>• Inscription Ordre des Médecins</li>
+                  <li>• <strong>Demande de conventionnement CPAM</strong></li>
+                  <li>• <strong>Obtention carte CPS</strong></li>
+                </ul>
+              </div>
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h4 class="font-bold text-blue-600 mb-3">Phase Installation (2-4 mois)</h4>
+                <ul class="space-y-2 text-sm text-blue-700">
+                  <li>• Travaux et aménagement</li>
+                  <li>• Achat équipement médical</li>
+                  <li>• <strong>Installation système de facturation</strong></li>
+                  <li>• <strong>Configuration télétransmission</strong></li>
+                  <li>• Souscription assurances</li>
+                </ul>
+              </div>
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h4 class="font-bold text-blue-600 mb-3">Phase Lancement (1 mois)</h4>
+                <ul class="space-y-2 text-sm text-blue-700">
+                  <li>• <strong>Tests de télétransmission</strong></li>
+                  <li>• Formations logiciels</li>
+                  <li>• Communication et visibilité</li>
+                  <li>• Ouverture de l'agenda</li>
+                </ul>
+              </div>
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h4 class="font-bold text-green-600 mb-3">Phase Opérationnelle</h4>
+                <ul class="space-y-2 text-sm text-green-700">
+                  <li>• <strong>Premières consultations</strong></li>
+                  <li>• <strong>Première facturation FSE</strong></li>
+                  <li>• <strong>Télétransmission quotidienne</strong></li>
+                  <li>• Développement de la patientèle</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section Focus Facturation -->
+          <div class="mt-8 section-card bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-8" style="border-left: 4px solid #10b981;">
+            <h3 class="text-2xl font-bold text-green-700 mb-6 text-center">Focus : Le Système de Facturation</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h4 class="font-bold text-green-600 mb-3">FSE - Feuille de Soins</h4>
+                <p class="text-sm text-green-700 mb-2">Document électronique qui remplace le formulaire papier</p>
+                <ul class="space-y-1 text-xs text-green-600">
+                  <li>• Identité patient (carte Vitale)</li>
+                  <li>• Actes réalisés (cotations)</li>
+                  <li>• Montant des honoraires</li>
+                  <li>• Signature électronique CPS</li>
+                </ul>
+              </div>
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h4 class="font-bold text-green-600 mb-3">SESAM-Vitale</h4>
+                <p class="text-sm text-green-700 mb-2">Système de télétransmission sécurisé</p>
+                <ul class="space-y-1 text-xs text-green-600">
+                  <li>• Lecture carte Vitale</li>
+                  <li>• Création FSE automatique</li>
+                  <li>• Envoi crypté à la CPAM</li>
+                  <li>• Retour sous 5-7 jours</li>
+                </ul>
+              </div>
+              <div class="bg-white rounded-lg p-4 shadow">
+                <h4 class="font-bold text-green-600 mb-3">Paiement</h4>
+                <p class="text-sm text-green-700 mb-2">Modes de règlement possibles</p>
+                <ul class="space-y-1 text-xs text-green-600">
+                  <li>• Tiers payant (CPAM paie)</li>
+                  <li>• Patient paie (remboursé après)</li>
+                  <li>• CB, espèces, chèque</li>
+                  <li>• Virement bancaire</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Calculateur Section -->
+        <section id="calculateur" class="max-w-7xl mx-auto px-6 py-12">
+          <div class="text-center mb-8">
+            <h2 class="text-4xl font-bold text-blue-700 mb-4">Calculateurs Financiers</h2>
+            <p class="text-xl text-blue-600">Estimez votre budget d'installation et votre chiffre d'affaires prévisionnel</p>
+          </div>
+
+          <!-- Calculateur CA -->
+          <div class="mb-12 section-card bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-8" style="border-left: 4px solid #10b981;">
+            <h3 class="text-3xl font-bold text-green-700 mb-6 text-center">Calculateur de Chiffre d'Affaires Prévisionnel</h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              <!-- Activité -->
+              <div class="bg-white rounded-lg shadow-md p-6">
+                <h4 class="text-xl font-semibold text-green-700 mb-4">Votre Activité</h4>
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Tarif consultation (€)</label>
+                    <input type="number" id="tarif-consultation" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="36" min="0" step="0.01" onchange="calculateCA()">
+                    <p class="text-xs text-green-600 mt-1">Secteur 1: 30€ | Secteur 2: libre (moyenne 36€)</p>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Journées complètes / semaine</label>
+                    <input type="number" id="journees-completes" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="3" min="0" max="7" onchange="calculateCA()">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Demi-journées / semaine</label>
+                    <input type="number" id="demi-journees" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="2" min="0" max="14" onchange="calculateCA()">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Patients par journée complète</label>
+                    <input type="number" id="patients-journee" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="20" min="0" onchange="calculateCA()">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Patients par demi-journée</label>
+                    <input type="number" id="patients-demi-journee" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="10" min="0" onchange="calculateCA()">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Semaines travaillées / an</label>
+                    <input type="number" id="semaines-travaillees" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="47" min="0" max="52" onchange="calculateCA()">
+                    <p class="text-xs text-green-600 mt-1">52 semaines - congés (généralement 47)</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Statut et Charges -->
+              <div class="bg-white rounded-lg shadow-md p-6">
+                <h4 class="text-xl font-semibold text-green-700 mb-4">Statut et Charges</h4>
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Statut juridique</label>
+                    <select id="statut-juridique" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" onchange="calculateCA()">
+                      <option value="liberal">Libéral (EI/EIRL)</option>
+                      <option value="societe">Société (SELARL/SEL)</option>
+                      <option value="titulaire">Titulaire remplaçant</option>
+                      <option value="collaborateur">Collaborateur</option>
+                      <option value="scm">SCM</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Taux de charges sociales (%)</label>
+                    <input type="number" id="taux-charges-sociales" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="45" min="0" max="100" step="0.1" onchange="calculateCA()">
+                    <p class="text-xs text-green-600 mt-1">Libéral: 45% | Société: 60-65%</p>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Charges fixes mensuelles (€)</label>
+                    <input type="number" id="charges-fixes" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="2000" min="0" step="100" onchange="calculateCA()">
+                    <p class="text-xs text-green-600 mt-1">Loyer, assurances, logiciels, etc.</p>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Taux d'imposition (%)</label>
+                    <input type="number" id="taux-imposition" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="30" min="0" max="100" step="0.1" onchange="calculateCA()">
+                    <p class="text-xs text-green-600 mt-1">Tranche marginale d'imposition</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Assistant Médical -->
+              <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-2">
+                <h4 class="text-xl font-semibold text-green-700 mb-4">Assistant(e) Médical(e)</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label class="flex items-center space-x-2 mb-3">
+                      <input type="checkbox" id="avec-assistant" class="w-4 h-4" onchange="calculateCA()">
+                      <span class="text-sm font-medium text-green-600">Embaucher un(e) assistant(e)</span>
+                    </label>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Salaire brut mensuel (€)</label>
+                    <input type="number" id="salaire-assistant" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="2000" min="0" step="100" onchange="calculateCA()" disabled>
+                    <p class="text-xs text-green-600 mt-1">SMIC à 2500€ selon expérience</p>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-green-600 mb-1">Aide Assurance Maladie (€/an)</label>
+                    <input type="number" id="aide-embauche" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" value="4200" min="0" step="100" onchange="calculateCA()" disabled>
+                    <p class="text-xs text-green-600 mt-1">Jusqu'à 4200€/an pendant 3 ans</p>
+                  </div>
+                </div>
+                <div class="mt-3 p-3 bg-green-50 rounded-lg">
+                  <p class="text-sm text-green-700">
+                    <strong>Aide à l'embauche d'un assistant médical :</strong> L'Assurance Maladie verse jusqu'à 4 200€/an pendant 3 ans pour l'embauche d'un assistant médical qualifié (conditions: exercice en groupe ou zone sous-dotée).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Résultats CA -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+              <h4 class="text-2xl font-bold text-green-700 mb-6 text-center">Résultats Prévisionnels</h4>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 text-center">
+                  <div class="text-sm text-blue-600 mb-1">Chiffre d'Affaires Annuel</div>
+                  <div id="ca-annuel" class="text-2xl font-bold text-blue-700">0 €</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 text-center">
+                  <div class="text-sm text-purple-600 mb-1">CA Mensuel Moyen</div>
+                  <div id="ca-mensuel" class="text-2xl font-bold text-purple-700">0 €</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 text-center">
+                  <div class="text-sm text-green-600 mb-1">Patients / Semaine</div>
+                  <div id="patients-semaine" class="text-2xl font-bold text-green-700">0</div>
+                </div>
+                <div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg p-4 text-center">
+                  <div class="text-sm text-amber-600 mb-1">Patients / An</div>
+                  <div id="patients-an" class="text-2xl font-bold text-amber-700">0</div>
+                </div>
+              </div>
+
+              <div class="space-y-3 mb-6">
+                <div class="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
+                  <span class="text-slate-700 font-medium">Chiffre d'Affaires Annuel</span>
+                  <span id="detail-ca" class="text-slate-900 font-bold">0 €</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                  <span class="text-red-700 font-medium">- Charges sociales</span>
+                  <span id="detail-charges-sociales" class="text-red-700 font-bold">0 €</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                  <span class="text-red-700 font-medium">- Charges fixes annuelles</span>
+                  <span id="detail-charges-fixes" class="text-red-700 font-bold">0 €</span>
+                </div>
+                <div id="assistant-cost-line" class="flex justify-between items-center p-3 bg-red-50 rounded-lg" style="display: none;">
+                  <span class="text-red-700 font-medium">- Coût assistant(e) (net des aides)</span>
+                  <span id="detail-cout-assistant" class="text-red-700 font-bold">0 €</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg border-t-2 border-blue-300">
+                  <span class="text-blue-700 font-medium">= Revenu avant impôts</span>
+                  <span id="detail-revenu-avant-impots" class="text-blue-700 font-bold">0 €</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                  <span class="text-red-700 font-medium">- Impôts sur le revenu</span>
+                  <span id="detail-impots" class="text-red-700 font-bold">0 €</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-lg border-2 border-green-400">
+                  <span class="text-green-800 font-bold text-lg">= REVENU NET ANNUEL</span>
+                  <span id="detail-revenu-net" class="text-green-800 font-bold text-xl">0 €</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg">
+                  <span class="text-green-700 font-medium">Revenu Net Mensuel</span>
+                  <span id="detail-revenu-net-mensuel" class="text-green-700 font-bold text-lg">0 €</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-blue-50 rounded-lg p-4 text-center">
+                  <div class="text-sm text-blue-600 mb-1">Taux de charges global</div>
+                  <div id="taux-charges-global" class="text-xl font-bold text-blue-700">0%</div>
+                </div>
+                <div class="bg-purple-50 rounded-lg p-4 text-center">
+                  <div class="text-sm text-purple-600 mb-1">Revenu horaire net</div>
+                  <div id="revenu-horaire" class="text-xl font-bold text-purple-700">0 €/h</div>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4 text-center">
+                  <div class="text-sm text-green-600 mb-1">Revenu par patient</div>
+                  <div id="revenu-patient" class="text-xl font-bold text-green-700">0 €</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Titre pour le prévisionnel des coûts -->
+          <h3 class="text-3xl font-bold text-blue-700 mb-6 text-center">Prévisionnel de votre installation</h3>
+
+          <div class="mb-6 category-card bg-white rounded-lg shadow-md p-6">
+            <h3 class="category-title text-xl font-semibold mb-4 text-blue-700">Informations du Projet</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="label-text block text-sm font-medium text-blue-600 mb-1">Nom du projet</label>
+                <input type="text" id="nom-projet" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md" placeholder="Mon cabinet médical">
+              </div>
+              <div>
+                <label class="label-text block text-sm font-medium text-blue-600 mb-1">Type de médecin</label>
+                <select id="type-medecin" class="input-field w-full px-3 py-2 border border-slate-300 rounded-md">
+                  <option value="generaliste">Généraliste</option>
+                  <option value="cardiologue">Cardiologue</option>
+                  <option value="dermatologue">Dermatologue</option>
+                  <option value="pediatre">Pédiatre</option>
+                  <option value="ophtalmologue">Ophtalmologue</option>
+                  <option value="autre">Autre spécialiste</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      `;
+
+      for (const [key, category] of Object.entries(categories)) {
+        container.innerHTML += `
+          <div class="category-card bg-white rounded-lg shadow-md p-6">
+            <h3 class="category-title text-xl font-semibold mb-4 text-blue-700">${category.nom}</h3>
+            <div class="space-y-3">
+        `;
+        
+        category.items.forEach(item => {
+          container.innerHTML += `
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
+              <label class="label-text text-sm text-blue-600 flex-1" for="${item.id}">${item.label}</label>
+              <div class="flex items-center gap-2 w-full sm:w-auto">
+                <input type="number" 
+                       id="${item.id}" 
+                       class="input-field w-full sm:w-24 px-2 py-1 border border-slate-300 rounded text-right" 
+                       value="${item.defaut}" 
+                       min="0" 
+                       step="0.01"
+                       onchange="calculateTotal()">
+                <span class="label-text text-xs text-slate-500 w-16 flex-shrink-0">${item.unite}</span>
+              </div>
+            </div>
+          `;
+        });
+        
+        container.innerHTML += `
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML += `
+          </div>
+
+          <div class="total-card rounded-xl shadow-lg p-8 mb-6">
+            <div class="text-center">
+              <h3 class="text-3xl font-bold mb-6 text-white drop-shadow-lg">Coût Total Estimé</h3>
+              <div class="mb-8">
+                <div id="total-text" class="text-6xl font-bold text-white mb-4 drop-shadow-2xl">0 €</div>
+                <div class="text-base text-white/90 space-y-1">
+                  <div id="cout-initial" class="font-medium">Installation initiale: 0 €</div>
+                  <div id="cout-annuel" class="font-medium">Coûts annuels: 0 €</div>
+                  <div id="cout-mensuel" class="font-medium">Coûts mensuels: 0 €</div>
+                </div>
+              </div>
+              <button onclick="saveSimulation()" class="btn-primary btn-3d bg-white text-purple-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all">
+                Enregistrer cette simulation
+              </button>
+            </div>
+          </div>
+
+          <div id="simulations-container" class="category-card bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="category-title text-xl font-semibold mb-4 text-blue-700">Simulations Enregistrées</h3>
+            <div id="simulations-list"></div>
+          </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="max-w-7xl mx-auto px-6 py-12 mb-12">
+          <div class="category-card bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl shadow-lg p-8 text-center">
+            <h2 class="text-3xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Besoin d'un Accompagnement Personnalisé ?</h2>
+            <p class="text-blue-700 mb-6 text-lg">Nos experts vous accompagnent dans toutes les étapes de votre installation, du conventionnement à la première facturation. confiez votre installation à nos experts, gagnez 6 mois pour votre installations aux normes</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+              <a href="https://elodiatech.com/formulaire-rendez-vous/" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 class="btn-3d inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all">
+                Prendre rendez-vous
+              </a>
+              <a href="https://elodiatech.com/medecin/" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 class="btn-3d inline-block bg-gradient-to-r from-green-500 to-teal-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-teal-700 transition-all">
+                Voir nos solutions
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Partenaires Section -->
+        <section id="partenaires" class="max-w-7xl mx-auto px-6 py-12">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-blue-700 mb-4">Partenaires Recommandés</h2>
+            <p class="text-xl text-blue-600">pour réussir votre installation, bénéficiez d'avantages</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Partner 1: E-Santé Caraïbes -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all">
+              <img src="https://www.esante-caraibes.fr/wp-content/uploads/2024/10/logobas-1-1024x158-1.png" alt="E-Santé Caraïbes" class="h-16 mb-4 mx-auto" onerror="this.src='https://placehold.co/200x60/3b82f6/FFFFFF?text=E-Santé+Caraïbes'; this.classList.add('p-4', 'bg-blue-600');">
+              <h3 class="category-title text-xl font-semibold mb-2 text-blue-700 text-center">E-Santé Caraïbes</h3>
+              <p class="text-sm text-blue-600 mb-4">Solutions digitales et télémédecine spécialisées pour les professionnels de santé des Antilles.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Télémédecine</span>
+                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Logiciel Médical</span>
+              </div>
+            </div>
+            <!-- Partner 2: Clikodoc -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all">
+              <img src="https://www.clikodoc.com/assets/images/home/logo_header_v4.png" alt="Clikodoc" class="h-16 mb-4 mx-auto" onerror="this.src='https://placehold.co/200x60/8b5cf6/FFFFFF?text=Clikodoc'; this.classList.add('p-4', 'bg-purple-600');">
+              <h3 class="category-title text-xl font-semibold mb-2 text-blue-700 text-center">Clikodoc</h3>
+              <p class="text-sm text-blue-600 mb-4">Plateforme de prise de rendez-vous en ligne leader dans les DOM-TOM.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">Prise RDV</span>
+                <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">Gestion Planning</span>
+              </div>
+            </div>
+            <!-- Partner 3: AMB Antilles -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all">
+              <img src="https://www.ambantilles.com/wp-content/uploads/2023/08/logo-couloeur-amb-1.png" alt="AMB Antilles" class="h-16 mb-4 mx-auto" onerror="this.src='https://placehold.co/200x60/ec4899/FFFFFF?text=AMB+Antilles'; this.classList.add('p-4', 'bg-pink-600');">
+              <h3 class="category-title text-xl font-semibold mb-2 text-blue-700 text-center">AMB Antilles</h3>
+              <p class="text-sm text-blue-600 mb-4">Assurance responsabilité civile professionnelle (RCP) médicale spécialisée Antilles-Guyane.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs bg-pink-100 text-pink-800 px-2 py-1 rounded-full">RCP Médicale</span>
+                <span class="text-xs bg-pink-100 text-pink-800 px-2 py-1 rounded-full">Défense Juridique</span>
+              </div>
+            </div>
+            
+            <!-- Partner 4: Gan Prévoyance -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all">
+              <img src="https://www.forumretraite.ganprevoyance.fr/lp/assets/form/logo-gan-prevoyance@2x.png" alt="Gan Prévoyance" class="h-16 mb-4 mx-auto" onerror="this.src='https://placehold.co/200x60/f59e0b/FFFFFF?text=Gan+Prévoyance'; this.classList.add('p-4', 'bg-yellow-600');">
+              <h3 class="category-title text-xl font-semibold mb-2 text-blue-700 text-center">Gan Prévoyance</h3>
+              <p class="text-sm text-blue-600 mb-4">Solutions de prévoyance, retraite et protection sociale adaptées aux professionnels de santé.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Prévoyance</span>
+                <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Retraite</span>
+                <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Assurance</span>
+              </div>
+            </div>
+            <!-- Partner 5: Le Sydel Office -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all">
+              <img src="https://sydeloffice.com/wp-content/uploads/2024/10/SYDEL_Logo-HD_Blanc-retina.png?1762768899" alt="Le Sydel Office" class="h-16 mb-4 mx-auto bg-gray-800 p-2 rounded" onerror="this.src='https://placehold.co/200x60/10b981/FFFFFF?text=Sydel+Office'; this.classList.add('p-4', 'bg-green-600');">
+              <h3 class="category-title text-xl font-semibold mb-2 text-blue-700 text-center">Le Sydel Office</h3>
+              <p class="text-sm text-blue-600 mb-4">Spécialisé en création de SELARL, SELAS, SPFPL et optimisation fiscale pour médecins.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">SELARL</span>
+                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Optimisation Fiscale</span>
+                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">SPFPL</span>
+              </div>
+            </div>
+            <!-- Partner 6: Bastide -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all">
+              <img src="https://bastide-bastide-storage.omn.proximis.com/Imagestorage/imagesSynchro/0/0/e0682f2c799f9e7794cb3989f90afea0bb715d81_logo.png" alt="Bastide" class="h-16 mb-4 mx-auto" onerror="this.src='https://placehold.co/200x60/64748b/FFFFFF?text=Bastide'; this.classList.add('p-4', 'bg-slate-600');">
+              <h3 class="category-title text-xl font-semibold mb-2 text-blue-700 text-center">Bastide</h3>
+              <p class="text-sm text-blue-600 mb-4">Fournisseur de matériel médical et solutions de santé à domicile pour les professionnels.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs bg-slate-100 text-slate-800 px-2 py-1 rounded-full">Matériel Médical</span>
+                <span class="text-xs bg-slate-100 text-slate-800 px-2 py-1 rounded-full">Santé à Domicile</span>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gradient-to-r from-blue-700 to-purple-700 text-white py-8">
+          <div class="max-w-7xl mx-auto px-6 text-center">
+            <img src="https://elodiatech.com/wp-content/uploads/2023/11/elodia-tech-LOGO-B-1536x1152.png" 
+                 alt="Elodia Tech" 
+                 class="h-16 w-auto mx-auto mb-4 bg-white rounded-lg p-2"
+                 onerror="this.style.display='none';">
+            <p class="text-lg mb-2">votre installation a 360 degrés</p>
+          </div>
+        </footer>
+      `;
+      
+      calculateTotal();
+      // Appeler calculateCA une fois pour initialiser les valeurs
+      calculateCA();
+    }
+
+    function calculateTotal() {
+      let coutInitial = 0;
+      let coutAnnuel = 0;
+      let coutMensuel = 0;
+
+      for (const [key, category] of Object.entries(categories)) {
+        category.items.forEach(item => {
+          const input = document.getElementById(item.id);
+          if (input) {
+            const value = parseFloat(input.value) || 0;
+            
+            if (item.unite.includes('/mois')) {
+              coutMensuel += value;
+            } else if (item.unite.includes('/an')) {
+              coutAnnuel += value;
+            } else {
+              coutInitial += value;
+            }
+          }
+        });
+      }
+
+      const coutTotalPremierAnnee = coutInitial + coutAnnuel + (coutMensuel * 12);
+
+      const totalText = document.getElementById('total-text');
+      const coutInitialText = document.getElementById('cout-initial');
+      const coutAnnuelText = document.getElementById('cout-annuel');
+      const coutMensuelText = document.getElementById('cout-mensuel');
+
+      if (totalText) totalText.textContent = `${coutTotalPremierAnnee.toLocaleString('fr-FR')} €`;
+      if (coutInitialText) coutInitialText.textContent = `Installation initiale: ${coutInitial.toLocaleString('fr-FR')} €`;
+      if (coutAnnuelText) coutAnnuelText.textContent = `Coûts annuels: ${coutAnnuel.toLocaleString('fr-FR')} €`;
+      if (coutMensuelText) coutMensuelText.textContent = `Coûts mensuels: ${coutMensuel.toLocaleString('fr-FR')} €`;
+    }
+
+    function calculateCA() {
+      // Récupération des valeurs
+      const tarifConsultation = parseFloat(document.getElementById('tarif-consultation')?.value) || 36;
+      const journeesCompletes = parseFloat(document.getElementById('journees-completes')?.value) || 0;
+      const demiJournees = parseFloat(document.getElementById('demi-journees')?.value) || 0;
+      const patientsJournee = parseFloat(document.getElementById('patients-journee')?.value) || 0;
+      const patientsDemiJournee = parseFloat(document.getElementById('patients-demi-journee')?.value) || 0;
+      const semainesTravaillees = parseFloat(document.getElementById('semaines-travaillees')?.value) || 47;
+      const tauxChargesSociales = parseFloat(document.getElementById('taux-charges-sociales')?.value) || 45;
+      const chargesFixes = parseFloat(document.getElementById('charges-fixes')?.value) || 0;
+      const tauxImposition = parseFloat(document.getElementById('taux-imposition')?.value) || 30;
+      
+      const avecAssistant = document.getElementById('avec-assistant')?.checked || false;
+      const salaireAssistant = parseFloat(document.getElementById('salaire-assistant')?.value) || 2000;
+      const aideEmbauche = parseFloat(document.getElementById('aide-embauche')?.value) || 4200;
+
+      // Gestion des champs assistant
+      const salaireInput = document.getElementById('salaire-assistant');
+      const aideInput = document.getElementById('aide-embauche');
+      if (salaireInput) salaireInput.disabled = !avecAssistant;
+      if (aideInput) aideInput.disabled = !avecAssistant;
+
+      // Calcul du nombre de patients
+      const patientsSemaine = (journeesCompletes * patientsJournee) + (demiJournees * patientsDemiJournee);
+      const patientsAn = patientsSemaine * semainesTravaillees;
+
+      // Calcul du CA
+      const caAnnuel = patientsAn * tarifConsultation;
+      const caMensuel = caAnnuel / 12;
+
+      // Calcul des charges sociales
+      const chargesSociales = caAnnuel * (tauxChargesSociales / 100);
+
+      // Calcul des charges fixes annuelles
+      const chargesFixesAnnuelles = chargesFixes * 12;
+
+      // Calcul du coût de l'assistant (charges patronales ~45%)
+      let coutAssistantAnnuel = 0;
+      if (avecAssistant) {
+        const chargesPatronales = salaireAssistant * 0.45;
+        const coutMensuelTotal = salaireAssistant + chargesPatronales;
+        coutAssistantAnnuel = (coutMensuelTotal * 12) - aideEmbauche;
+      }
+
+      // Affichage/masquage de la ligne assistant
+      const assistantLine = document.getElementById('assistant-cost-line');
+      if (assistantLine) {
+        assistantLine.style.display = avecAssistant ? 'flex' : 'none';
+      }
+
+      // Calcul du revenu avant impôts
+      const revenuAvantImpots = caAnnuel - chargesSociales - chargesFixesAnnuelles - coutAssistantAnnuel;
+
+      // Calcul des impôts
+      const impots = Math.max(0, revenuAvantImpots * (tauxImposition / 100));
+
+      // Calcul du revenu net
+      const revenuNet = revenuAvantImpots - impots;
+      const revenuNetMensuel = revenuNet / 12;
+
+      // Calcul des indicateurs
+      const totalCharges = chargesSociales + chargesFixesAnnuelles + coutAssistantAnnuel + impots;
+      const tauxChargesGlobal = caAnnuel > 0 ? (totalCharges / caAnnuel * 100) : 0;
+      
+      // Calcul du revenu horaire (estimation 8h par journée complète, 4h par demi-journée)
+      const heuresSemaine = (journeesCompletes * 8) + (demiJournees * 4);
+      const heuresAn = heuresSemaine * semainesTravaillees;
+      const revenuHoraire = heuresAn > 0 ? revenuNet / heuresAn : 0;
+
+      // Revenu par patient
+      const revenuParPatient = patientsAn > 0 ? revenuNet / patientsAn : 0;
+
+      // Mise à jour de l'affichage
+      const updateElement = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      };
+
+      updateElement('ca-annuel', `${Math.round(caAnnuel).toLocaleString('fr-FR')} €`);
+      updateElement('ca-mensuel', `${Math.round(caMensuel).toLocaleString('fr-FR')} €`);
+      updateElement('patients-semaine', Math.round(patientsSemaine));
+      updateElement('patients-an', Math.round(patientsAn));
+
+      updateElement('detail-ca', `${Math.round(caAnnuel).toLocaleString('fr-FR')} €`);
+      updateElement('detail-charges-sociales', `${Math.round(chargesSociales).toLocaleString('fr-FR')} €`);
+      updateElement('detail-charges-fixes', `${Math.round(chargesFixesAnnuelles).toLocaleString('fr-FR')} €`);
+      updateElement('detail-cout-assistant', `${Math.round(coutAssistantAnnuel).toLocaleString('fr-FR')} €`);
+      updateElement('detail-revenu-avant-impots', `${Math.round(revenuAvantImpots).toLocaleString('fr-FR')} €`);
+      updateElement('detail-impots', `${Math.round(impots).toLocaleString('fr-FR')} €`);
+      updateElement('detail-revenu-net', `${Math.round(revenuNet).toLocaleString('fr-FR')} €`);
+      updateElement('detail-revenu-net-mensuel', `${Math.round(revenuNetMensuel).toLocaleString('fr-FR')} €`);
+
+      updateElement('taux-charges-global', `${tauxChargesGlobal.toFixed(1)}%`);
+      updateElement('revenu-horaire', `${Math.round(revenuHoraire).toLocaleString('fr-FR')} €/h`);
+      updateElement('revenu-patient', `${Math.round(revenuParPatient).toLocaleString('fr-FR')} €`);
+    }
+
+    async function saveSimulation() {
+      if (!window.dataSdk) {
+        showToast("Le module de sauvegarde n'est pas chargé.", "error");
+        return;
+      }
+      if (currentData.length >= 999) {
+        showToast("Limite de 999 simulations atteinte. Veuillez supprimer des simulations existantes.", "error");
+        return;
+      }
+
+      const nomProjet = document.getElementById('nom-projet').value || 'Sans nom';
+      const typeMedecin = document.getElementById('type-medecin').value;
+      
+      const details = {};
+      for (const [key, category] of Object.entries(categories)) {
+        category.items.forEach(item => {
+          const input = document.getElementById(item.id);
+          if (input) {
+            details[item.id] = parseFloat(input.value) || 0;
+          }
+        });
+      }
+
+      let coutInitial = 0;
+      let coutAnnuel = 0;
+      let coutMensuel = 0;
+
+      for (const [key, category] of Object.entries(categories)) {
+        category.items.forEach(item => {
+          const value = details[item.id] || 0;
+          if (item.unite.includes('/mois')) {
+            coutMensuel += value;
+          } else if (item.unite.includes('/an')) {
+            coutAnnuel += value;
+          } else {
+            coutInitial += value;
+          }
+        });
+      }
+
+      const coutTotal = coutInitial + coutAnnuel + (coutMensuel * 12);
+
+      const simulation = {
+        id: Date.now().toString(),
+        nom_projet: nomProjet,
+        type_medecin: typeMedecin,
+        date_creation: new Date().toISOString(),
+        cout_total: coutTotal,
+        details_json: JSON.stringify(details)
+      };
+
+      const btn = event.target;
+      btn.disabled = true;
+      btn.textContent = 'Enregistrement...';
+
+      const result = await window.dataSdk.create(simulation);
+      
+      btn.disabled = false;
+      btn.textContent = 'Enregistrer cette simulation';
+
+      if (result.isOk) {
+        showToast("Simulation enregistrée avec succès !", "success");
+      } else {
+        showToast("Erreur lors de l'enregistrement", "error");
+      }
+    }
+
+    function renderSimulations() {
+      const container = document.getElementById('simulations-list');
+      if (!container) return;
+
+      if (currentData.length === 0) {
+        container.innerHTML = '<p class="text-slate-500 text-center py-4">Aucune simulation enregistrée</p>';
+        return;
+      }
+
+      const sortedData = [...currentData].sort((a, b) => 
+        new Date(b.date_creation) - new Date(a.date_creation)
+      );
+
+      let html = '<div class="space-y-3">';
+      
+      sortedData.forEach(sim => {
+        const date = new Date(sim.date_creation).toLocaleDateString('fr-FR');
+        html += `
+          <div class="border border-slate-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h4 class="font-semibold text-blue-700">${sim.nom_projet}</h4>
+                <p class="text-sm text-blue-600">${sim.type_medecin} • ${date}</p>
+              </div>
+              <div class="text-right">
+                <div class="text-xl font-bold text-blue-600">${sim.cout_total.toLocaleString('fr-FR')} €</div>
+              </div>
+            </div>
+            <div class="flex gap-2 mt-3">
+              <button onclick="loadSimulation('${sim.__backendId}')" class="btn-secondary btn-3d bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:from-blue-600 hover:to-blue-700 transition-all">
+                Charger
+              </button>
+              <button onclick="deleteSimulation('${sim.__backendId}')" class="btn-secondary btn-3d bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:from-red-600 hover:to-red-700 transition-all">
+                Supprimer
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function loadSimulation(backendId) {
+      const simulation = currentData.find(s => s.__backendId === backendId);
+      if (!simulation) return;
+
+      document.getElementById('nom-projet').value = simulation.nom_projet;
+      document.getElementById('type-medecin').value = simulation.type_medecin;
+
+      const details = JSON.parse(simulation.details_json);
+      for (const [key, value] of Object.entries(details)) {
+        const input = document.getElementById(key);
+        if (input) {
+          input.value = value;
+        }
+      }
+
+      calculateTotal();
+      showToast("Simulation chargée !", "success");
+      scrollToSection('calculateur');
+    }
+
+    async function deleteSimulation(backendId) {
+      if (!window.dataSdk) {
+        showToast("Le module de sauvegarde n'est pas chargé.", "error");
+        return;
+      }
+      const simulation = currentData.find(s => s.__backendId === backendId);
+      if (!simulation) return;
+
+      const btn = event.target;
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Suppression...';
+
+      const result = await window.dataSdk.delete(simulation);
+      
+      btn.disabled = false;
+      btn.textContent = originalText;
+
+      if (result.isOk) {
+        showToast("Simulation supprimée", "success");
+      } else {
+        showToast("Erreur lors de la suppression", "error");
+      }
+    }
+
+    function showToast(message, type) {
+      const toast = document.createElement('div');
+      toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white font-semibold z-50 ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+      }`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // Corrigé : Appelait renderPage puis initApp, ce qui est redondant.
+    // Maintenant, seul initApp est appelé, qui appelle lui-même renderPage.
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+  <main id="main-container"></main>
+  <!-- Script suspect retiré -->
+ </body>
+</html>
