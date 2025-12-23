@@ -55,9 +55,15 @@
         margin-top: -2rem;
     }
     .nav-tabs {
-        display: flex; justify-content: flex-start md:justify-center; gap: 0.5rem;
-        overflow-x: auto; padding-bottom: 0.2rem;
-        -ms-overflow-style: none; scrollbar-width: none;
+        display: flex; 
+        justify-content: flex-start; /* Changé pour éviter le rognage des onglets */
+        gap: 0.5rem;
+        overflow-x: auto; 
+        padding-bottom: 0.2rem;
+        padding-left: 1rem; /* Ajout padding mobile */
+        padding-right: 1rem;
+        -ms-overflow-style: none; 
+        scrollbar-width: none;
     }
     .nav-tabs::-webkit-scrollbar { display: none; }
 
@@ -67,6 +73,7 @@
         color: #64748b; background: white; border: 1px solid #e2e8f0;
         transition: all 0.2s; white-space: nowrap; cursor: pointer;
         display: flex; align-items: center; gap: 6px;
+        flex-shrink: 0; /* Empêche l'écrasement des boutons */
     }
     .tab-btn:hover { background: #f8fafc; color: #0f172a; border-color: #cbd5e1; transform: translateY(-1px); }
     .tab-btn.active { background: #007BFF; color: white; border-color: #007BFF; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); }
@@ -260,7 +267,7 @@
     </div>
   </div>
   <div class="tabs-container">
-      <div class="max-w-7xl mx-auto px-4">
+      <div class="max-w-7xl mx-auto px-0 md:px-4">
           <div class="nav-tabs">
             <button onclick="switchTab('strategie')" id="btn-strategie" class="tab-btn active"><i class="ph ph-compass text-lg"></i> 1. Stratégie</button>
             <button onclick="switchTab('admin')" id="btn-admin" class="tab-btn"><i class="ph ph-files text-lg"></i> 2. Démarches</button>
@@ -269,7 +276,7 @@
             <button onclick="switchTab('vie')" id="btn-vie" class="tab-btn"><i class="ph ph-heartbeat text-lg"></i> 5. Carrière & Vie</button>
             <button onclick="switchTab('calculateur')" id="btn-calculateur" class="tab-btn text-indigo-700 border-indigo-200 bg-indigo-50 hover:bg-indigo-100 font-bold"><i class="ph ph-calculator text-lg"></i> 6. Simulateur 2025</button>
             <button onclick="switchTab('optimisation')" id="btn-optimisation" class="tab-btn text-purple-700 border-purple-200 bg-purple-50 hover:bg-purple-100 font-bold"><i class="ph ph-buildings text-lg"></i> 7. Optimisation Fiscale</button>
-            <button onclick="switchTab('checklist')" id="btn-checklist" class="tab-btn text-green-700 border-green-200 bg-green-50 hover:bg-green-100 font-bold"><i class="ph ph-check-square text-lg"></i> 8. Checklist Interactive</button>
+            <button onclick="switchTab('checklist')" id="btn-checklist" class="tab-btn text-green-700 border-green-200 bg-green-50 hover:bg-green-100 font-bold flex-shrink-0"><i class="ph ph-check-square text-lg"></i> 8. Checklist Interactive</button>
           </div>
       </div>
   </div>
@@ -340,8 +347,70 @@
                     </div>
                 </div>
             </div>
+
+            <!-- TABLEAU COMPARATIF STATUTS (NOUVEAU) -->
+            <div class="mt-8 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-4 bg-slate-50 border-b border-slate-200">
+                    <h4 class="font-bold text-slate-700 flex items-center gap-2">
+                        <i class="ph ph-table"></i> Comparatif Express des Statuts 2025
+                    </h4>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-slate-600">
+                        <thead class="text-xs text-slate-700 uppercase bg-slate-50 border-b">
+                            <tr>
+                                <th class="px-6 py-3">Critère</th>
+                                <th class="px-6 py-3 text-green-700 bg-green-50/50">EI / BNC</th>
+                                <th class="px-6 py-3 text-indigo-700 bg-indigo-50/50">SELARL</th>
+                                <th class="px-6 py-3 text-purple-700 bg-purple-50/50">SELAS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-slate-50">
+                                <td class="px-6 py-4 font-medium text-slate-900">Charges Sociales</td>
+                                <td class="px-6 py-4">~45% (Sur tout le bénéfice)</td>
+                                <td class="px-6 py-4">~45% (Sur rémunération)</td>
+                                <td class="px-6 py-4">~65-80% (Assimilé Salarié)</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-slate-50">
+                                <td class="px-6 py-4 font-medium text-slate-900">Fiscalité</td>
+                                <td class="px-6 py-4">IR (Progressif)</td>
+                                <td class="px-6 py-4">IS (15%/25%) + IR sur Rémun.</td>
+                                <td class="px-6 py-4">IS (15%/25%) + IR sur Rémun.</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-slate-50">
+                                <td class="px-6 py-4 font-medium text-slate-900">Protection Sociale</td>
+                                <td class="px-6 py-4">Moyenne (TNS)</td>
+                                <td class="px-6 py-4">Moyenne (TNS)</td>
+                                <td class="px-6 py-4">Forte (Régime Général - hors chômage)</td>
+                            </tr>
+                            <tr class="bg-white hover:bg-slate-50">
+                                <td class="px-6 py-4 font-medium text-slate-900">Complexité Admin</td>
+                                <td class="px-6 py-4">Faible</td>
+                                <td class="px-6 py-4">Moyenne (Statuts, AG)</td>
+                                <td class="px-6 py-4">Élevée (Fiches de paie, Statuts)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CONSEIL EXPERT BOX (NOUVEAU) -->
+            <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-xl">
+                <div class="flex items-start gap-3">
+                    <i class="ph ph-lightbulb text-yellow-600 text-xl mt-1"></i>
+                    <div>
+                        <h5 class="font-bold text-yellow-800 text-sm">Le Conseil "Vie Privée"</h5>
+                        <p class="text-xs text-yellow-700 mt-1">
+                            Au-delà des chiffres, pensez à votre <strong>régime matrimonial</strong>. En SELARL/SELAS, la valeur des parts sociales peut entrer dans la communauté réduite aux acquêts. En cas de divorce, cela peut impacter votre cabinet. 
+                            <br><em>Astuce : La séparation de biens est souvent recommandée pour les professions libérales en société.</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <!-- DETAILED COMPARISON -->
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-8 mt-8">
                 <div class="section-card border-l-emerald-500 !mb-0">
                     <h3 class="font-bold text-xl text-slate-800 mb-4 flex items-center gap-2">
                         <i class="ph ph-map-pin text-emerald-600"></i> Stratégie Territoriale
@@ -471,8 +540,9 @@
     <div id="tab-pratique" class="tab-content">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-2xl font-bold text-slate-800 mb-2">Concevoir & Sécuriser son Cabinet</h2>
-            <p class="text-slate-600 mb-8">Au-delà du soin : normes techniques, sécurité des données et gestion des risques.</p>
-            <div class="grid lg:grid-cols-3 gap-6 mb-8">
+            <p class="text-slate-600 mb-8">Au-delà du soin : normes techniques, sécurité des données et spécificités locales.</p>
+            
+            <div class="grid lg:grid-cols-3 gap-6 mb-6">
                 <!-- SCHÉMA CABINET TYPE -->
                 <div class="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
                     <h3 class="font-bold text-indigo-700 mb-4 flex items-center gap-2"><i class="ph ph-blueprint text-xl"></i> Zoning & Surfaces Recommandées</h3>
@@ -480,12 +550,12 @@
                         <div class="bg-indigo-50 rounded-lg p-4 flex flex-col justify-between border border-indigo-100 relative">
                             <div class="absolute top-2 right-2 text-[10px] bg-white px-2 rounded border border-indigo-200 text-indigo-600 font-bold">Min 15-20 m²</div>
                             <span class="font-bold text-indigo-900"><i class="ph ph-armchair"></i> Salle d'Attente</span>
-                            <p class="text-xs text-indigo-700">Flux patient. Isolation phonique. Affichages obligatoires. Coin enfants.</p>
+                            <p class="text-xs text-indigo-700">Flux patient. Isolation phonique (Cloisons 45dB). Affichages. Coin enfants.</p>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-4 flex flex-col justify-between border border-slate-200 relative">
                             <div class="absolute top-2 right-2 text-[10px] bg-white px-2 rounded border border-slate-300 text-slate-600 font-bold">Stratégique</div>
                             <span class="font-bold text-slate-700"><i class="ph ph-user-focus"></i> Secrétariat / Accueil</span>
-                            <p class="text-xs text-slate-600">Filtre entrée. Confidentialité des appels. Rangement dossiers sécurisé (clés).</p>
+                            <p class="text-xs text-slate-600">Filtre entrée. Confidentialité visuelle et sonore des appels. Stockage dossiers.</p>
                         </div>
                         <div class="bg-emerald-50 rounded-lg p-4 flex flex-col justify-between border border-emerald-100 col-span-2 relative">
                             <div class="absolute top-2 right-2 text-[10px] bg-white px-2 rounded border border-emerald-200 text-emerald-600 font-bold">Min 17 m²</div>
@@ -495,41 +565,71 @@
                             </div>
                             <div class="grid grid-cols-2 gap-4 mt-2">
                                 <div class="bg-white/60 p-2 rounded text-xs text-emerald-800">
-                                    <strong>Bureau :</strong> Ordi, Lecteur CV, Imprimante. Face au patient.
+                                    <strong>Bureau :</strong> Ordi, Lecteur CV, Imprimante. Face au patient. Éclairage > 300 lux.
                                 </div>
                                 <div class="bg-white/60 p-2 rounded text-xs text-emerald-800">
-                                    <strong>Examen :</strong> Divan, Guéridon, Point d'eau (Lavabo obligatoire avec commande non-manuelle).
+                                    <strong>Examen :</strong> Divan, Guéridon, Point d'eau (Commande fémorale/électronique).
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <!-- NORMES & MATERIEL -->
                 <div class="space-y-4">
                     <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
                         <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-wheelchair text-blue-600"></i> Normes ERP 5 (PMR)</h4>
                         <ul class="text-xs text-slate-600 list-disc list-inside space-y-1">
-                            <li><strong>Portes :</strong> Largeur de passage utile 90cm min.</li>
-                            <li><strong>Sanitaires :</strong> Aire de rotation 1.50m obligatoire.</li>
-                            <li><strong>Rampe :</strong> Si dénivelé, pente max 5% (ou 10% sur courte distance).</li>
+                            <li><strong>Portes :</strong> Largeur utile 90cm min.</li>
+                            <li><strong>Sanitaires :</strong> Aire de rotation 1.50m.</li>
+                            <li><strong>Rampe :</strong> Pente max 5% si dénivelé.</li>
                             <li><strong>Registre :</strong> Registre public d'accessibilité à l'accueil.</li>
                         </ul>
                     </div>
                     <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
                         <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-fire-extinguisher text-red-600"></i> Sécurité Incendie</h4>
                         <ul class="text-xs text-slate-600 list-disc list-inside space-y-1">
-                            <li><strong>Extincteur :</strong> 1 appareil pour 300m² (Type eau pulvérisée 6L).</li>
-                            <li><strong>Vérification :</strong> Annuelle par un organisme agréé.</li>
-                            <li><strong>Affichage :</strong> Plans d'évacuation et consignes visibles.</li>
+                            <li><strong>Extincteur :</strong> 1 pour 300m² (Eau pulvérisée + Additif).</li>
+                            <li><strong>Vérification :</strong> Annuelle (Q4).</li>
+                            <li><strong>Alarme :</strong> Type 4 (sifflet ou électrique) selon config.</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+            <!-- NOUVEAU BLOC : SPECIFICITÉS TROPICALES & IT -->
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
+                <div class="bg-orange-50 border border-orange-200 rounded-xl p-4">
+                    <h4 class="font-bold text-orange-900 mb-2 flex items-center gap-2"><i class="ph ph-sun-horizon"></i> Climat & Bâti (DROM)</h4>
+                    <ul class="text-xs text-orange-800 space-y-2">
+                        <li class="flex items-start gap-2"><i class="ph ph-fan mt-0.5"></i> <span><strong>Climatisation :</strong> Contrat d'entretien semestriel (Filtres/Moisissures).</span></li>
+                        <li class="flex items-start gap-2"><i class="ph ph-drop mt-0.5"></i> <span><strong>Eau :</strong> Citerne tampon recommandée (Coupures).</span></li>
+                        <li class="flex items-start gap-2"><i class="ph ph-wind mt-0.5"></i> <span><strong>Cyclone :</strong> Volets cycloniques ou vitrage feuilleté.</span></li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                    <h4 class="font-bold text-blue-900 mb-2 flex items-center gap-2"><i class="ph ph-wifi-high"></i> Continuité IT</h4>
+                    <ul class="text-xs text-blue-800 space-y-2">
+                        <li class="flex items-start gap-2"><i class="ph ph-lightning mt-0.5"></i> <span><strong>Électrique :</strong> Onduleur obligatoire (Protection matériel & coupures).</span></li>
+                        <li class="flex items-start gap-2"><i class="ph ph-cell-signal-full mt-0.5"></i> <span><strong>Internet :</strong> Routeur 4G de secours (Failover) pour télétrans.</span></li>
+                        <li class="flex items-start gap-2"><i class="ph ph-shield-network mt-0.5"></i> <span><strong>Wi-Fi :</strong> Réseau "Invité" séparé du réseau "Médical".</span></li>
+                    </ul>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                    <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-speaker-slash"></i> Confort & Acoustique</h4>
+                    <p class="text-xs text-slate-600 mb-2">La confidentialité est une obligation légale.</p>
+                    <ul class="text-xs text-slate-600 list-disc list-inside space-y-1">
+                        <li><strong>Cloisons :</strong> Isolation 45dB (Placo phonique).</li>
+                        <li><strong>Portes :</strong> Pleines, avec joints isophoniques (balais).</li>
+                        <li><strong>Musique :</strong> Fond sonore en salle d'attente (masquage).</li>
+                    </ul>
+                </div>
+            </div>
+
             <!-- MODULE CONFORMITE RGPD & DECHETS -->
             <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+                <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
                     <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2"><i class="ph ph-lock-key text-xl text-slate-600"></i> Conformité RGPD & Données</h3>
-                    <p class="text-xs text-slate-600 mb-3">En tant que médecin, vous traitez des données sensibles. Vos obligations :</p>
                     <ul class="space-y-2 text-xs">
                         <li class="flex items-start gap-2">
                             <i class="ph ph-check text-green-600 mt-0.5"></i>
@@ -545,21 +645,20 @@
                         </li>
                     </ul>
                 </div>
-                <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+                <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
                     <h3 class="font-bold text-slate-800 mb-3 flex items-center gap-2"><i class="ph ph-trash text-xl text-slate-600"></i> Gestion des Déchets (DASRI)</h3>
-                    <p class="text-xs text-slate-600 mb-3">Les Déchets d'Activités de Soins à Risques Infectieux (piquants, coupants, sang) sont réglementés.</p>
                     <ul class="space-y-2 text-xs">
                         <li class="flex items-start gap-2">
                             <i class="ph ph-check text-green-600 mt-0.5"></i>
-                            <span><strong>Contenants :</strong> Boîtes jaunes normalisées pour les aiguilles.</span>
+                            <span><strong>Contenants :</strong> Boîtes jaunes normalisées pour les aiguilles (OPCT).</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <i class="ph ph-check text-green-600 mt-0.5"></i>
-                            <span><strong>Collecte :</strong> Contrat obligatoire avec un prestataire agréé. La fréquence de collecte dépend du volume produit.</span>
+                            <span><strong>Collecte :</strong> Contrat obligatoire avec un prestataire agréé (ex: 72h max si > 5kg/mois).</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <i class="ph ph-check text-green-600 mt-0.5"></i>
-                            <span><strong>Traçabilité :</strong> Conservez les bordereaux de suivi d'élimination des déchets.</span>
+                            <span><strong>Traçabilité :</strong> Conservez les bordereaux de suivi d'élimination des déchets (3 ans).</span>
                         </li>
                     </ul>
                 </div>
@@ -570,7 +669,7 @@
     <div id="tab-finance" class="tab-content">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                <i class="ph ph-coins text-yellow-500"></i> Aides Financières & Dispositifs (Focus Martinique)
+                <i class="ph ph-coins text-yellow-500"></i> Aides Financières & Dispositifs
             </h2>
             
             <div class="grid md:grid-cols-2 gap-8 mb-8">
@@ -592,6 +691,9 @@
                     <h3 class="font-bold text-purple-900 mb-3 flex items-center gap-2"><i class="ph ph-chart-bar text-xl"></i> Primes à la Performance</h3>
                     <ul class="space-y-3 text-sm text-slate-700">
                         <li class="border-b border-slate-100 pb-2">
+                            <strong>Forfait Médecin Traitant (FMT) :</strong> Rémunération forfaitaire pour le suivi de la patientèle (5€ à 70€/patient/an), versée chaque trimestre.
+                        </li>
+                        <li class="border-b border-slate-100 pb-2">
                             <strong>Forfait Structure :</strong> Aide annuelle pour la modernisation (Logiciel Ségur, Messagerie sécurisée, Videoconsultation). <br><span class="text-xs text-slate-500">Montant moyen : 4 000 - 9 000 € / an.</span>
                         </li>
                         <li class="border-b border-slate-100 pb-2">
@@ -603,32 +705,47 @@
                     </ul>
                 </div>
             </div>
+            
+            <!-- NOUVEAU BLOC : SPÉCIFICITÉS FISCALES & BANCAIRES -->
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="bg-green-50 p-5 rounded-xl border border-green-200">
-                    <h4 class="font-bold text-green-900 mb-2 flex items-center gap-2"><i class="ph ph-tree text-lg"></i> ZFU - Territoire Entrepreneur</h4>
-                    <p class="text-xs text-green-800 mb-2">Dispositif clé en Martinique (ex: Lamentin).</p>
-                    <ul class="text-xs text-green-700 list-disc list-inside">
-                        <li><strong>Exonération Impôt (IR/IS) :</strong> 100% pendant 5 ans, puis dégressif (60%, 40%, 20%).</li>
-                        <li><strong>Plafond :</strong> Jusqu'à 50 000 € de bénéfice exonéré par an (majorations possibles).</li>
+                    <h4 class="font-bold text-green-900 mb-2 flex items-center gap-2"><i class="ph ph-tree text-lg"></i> Fiscalité & ZFU</h4>
+                    <p class="text-xs text-green-800 mb-2">Leviers fiscaux puissants en Martinique.</p>
+                    <ul class="text-xs text-green-700 list-disc list-inside space-y-1">
+                        <li><strong>ZFU (Impôt Bénéfice) :</strong> Exonération 100% pendant 5 ans (Plafond 50k€/an).</li>
+                        <li><strong>CFE (Impôt Locaux) :</strong> Exonération totale la 1ère année d'exercice. Exonération prolongée possible en ZFU/QPV (sur délibération locale).</li>
+                        <li><strong>TVA :</strong> Franchise en base (pas de TVA à facturer sur les soins).</li>
                     </ul>
                 </div>
                 <div class="bg-orange-50 p-5 rounded-xl border border-orange-200">
-                    <h4 class="font-bold text-orange-900 mb-2 flex items-center gap-2"><i class="ph ph-bank text-lg"></i> Partenaires Bancaires</h4>
-                    <p class="text-xs text-orange-800 mb-2">Pour le financement du local ou du matériel.</p>
-                    <ul class="text-xs text-orange-700 list-disc list-inside">
-                        <li>Crédit-Bail (Leasing) pour le matériel médical (échographie, etc.).</li>
-                        <li>Prêt Professionnel pour les travaux d'aménagement.</li>
-                        <li><strong>Conseil :</strong> Négociez une franchise de remboursement de 6 mois pour démarrer sereinement.</li>
+                    <h4 class="font-bold text-orange-900 mb-2 flex items-center gap-2"><i class="ph ph-bank text-lg"></i> Stratégie Bancaire</h4>
+                    <p class="text-xs text-orange-800 mb-2">Financer le BFR et le matériel.</p>
+                    <ul class="text-xs text-orange-700 list-disc list-inside space-y-1">
+                        <li><strong>Prêt Installation :</strong> Financez votre BFR (Besoin en Fonds de Roulement) pour les 3-6 premiers mois.</li>
+                        <li><strong>Crédit-Bail (LOA) :</strong> Privilégiez le leasing pour le matériel médical (déductible intégralement en charge).</li>
+                        <li><strong>Assurance Emprunteur :</strong> Négociez une délégation d'assurance (loi Lemoine) pour réduire le coût.</li>
                     </ul>
                 </div>
                 <div class="bg-red-50 p-5 rounded-xl border border-red-200">
-                    <h4 class="font-bold text-red-900 mb-2 flex items-center gap-2"><i class="ph ph-shield-check text-lg"></i> Prévoyance (Loi Madelin)</h4>
-                    <p class="text-xs text-red-800 mb-2">Vital car la CARMF couvre mal les arrêts courts (J0 à J90).</p>
-                    <ul class="text-xs text-red-700 list-disc list-inside">
-                        <li>Couverture des charges fixes du cabinet.</li>
-                        <li>Maintien du revenu personnel.</li>
-                        <li>Déductibilité fiscale des cotisations.</li>
+                    <h4 class="font-bold text-red-900 mb-2 flex items-center gap-2"><i class="ph ph-shield-check text-lg"></i> Social & Embauche</h4>
+                    <p class="text-xs text-red-800 mb-2">Alléger le coût du travail.</p>
+                    <ul class="text-xs text-red-700 list-disc list-inside space-y-1">
+                        <li><strong>LODEOM (Social) :</strong> Exonération de charges patronales sur les salaires jusqu'à 2.5 SMIC (Idéal secrétaire).</li>
+                        <li><strong>Prévoyance Madelin :</strong> Indispensable pour couvrir les frais fixes du cabinet en cas d'arrêt de travail.</li>
+                        <li><strong>TESE (URSSAF) :</strong> Dispositif simplifié pour gérer la paie d'un salarié sans expert-comptable.</li>
                     </ul>
+                </div>
+            </div>
+            
+            <!-- ALERT BOX CTM (NOUVEAU) -->
+            <div class="mt-6 bg-slate-50 border border-slate-200 p-4 rounded-xl flex gap-3 items-start">
+                <i class="ph ph-info text-blue-500 text-xl mt-0.5"></i>
+                <div>
+                    <h5 class="font-bold text-slate-800 text-sm">Aides Régionales (CTM)</h5>
+                    <p class="text-xs text-slate-600 mt-1">
+                        La Collectivité Territoriale de Martinique (CTM) propose ponctuellement des aides à l'investissement numérique ou à la modernisation des cabinets de santé. 
+                        Renseignez-vous auprès de la CTM ou de l'URPS Médecins Martinique pour les appels à projets en cours.
+                    </p>
                 </div>
             </div>
         </div>
@@ -643,6 +760,7 @@
                 </h2>
                 <!-- No Partner Logo here as requested -->
             </div>
+            
             <div class="grid md:grid-cols-2 gap-8 mb-8">
                 <!-- RETRAITE CARMF -->
                 <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-md">
@@ -683,15 +801,15 @@
                             <ul class="text-sm text-slate-700 space-y-1 list-disc list-inside">
                                 <li><strong>Durée :</strong> 16 semaines (6 avt / 10 apr).</li>
                                 <li><strong>Indemnités :</strong> Allocation forfaitaire (~3600€) + IJ (~56€/j).</li>
-                                <li><strong>ASM :</strong> Aide sup. Secteur 1.</li>
+                                <li><strong>ASM :</strong> Aide sup. Secteur 1 pour remplacement.</li>
                             </ul>
                         </div>
                         <div class="pt-4 border-t border-slate-100">
                             <h4 class="text-sm font-bold text-blue-600 mb-1">Congé Paternité</h4>
                             <ul class="text-sm text-slate-700 space-y-1 list-disc list-inside">
-                                <li><strong>Durée :</strong> 25 jours (dont 4 obligatoires) + 3 jours naissance = 28 jours.</li>
+                                <li><strong>Durée :</strong> 25 jours (dont 4 obligatoires) + 3 jours naissance.</li>
                                 <li><strong>Indemnités :</strong> IJ journalières (~56€/j) sous condition de cessation d'activité.</li>
-                                <li><strong>Flexibilité :</strong> Fractionnable en 2 périodes (min 5 jours).</li>
+                                <li><strong>Flexibilité :</strong> Fractionnable en 2 périodes.</li>
                             </ul>
                         </div>
                     </div>
@@ -701,24 +819,57 @@
                         <p class="text-sm text-slate-600 mb-2">Ne vous limitez pas au cabinet. Diversifiez pour rompre l'isolement et sécuriser vos revenus.</p>
                         <ul class="text-sm text-slate-700 space-y-2">
                             <li><strong class="text-teal-700">EHPAD :</strong> Médecin Coordonnateur ou Traitant. Revenu salarié ou libéral.</li>
-                            <li><strong class="text-teal-700">MSP (Maison de Santé) :</strong> Travail en équipe, partage de SISA, primes NMR (Nouveaux Modes de Rémunération).</li>
+                            <li><strong class="text-teal-700">MSP (Maison de Santé) :</strong> Travail en équipe, partage de SISA, primes NMR.</li>
                             <li><strong class="text-teal-700">Centre de Santé :</strong> Salariat pur, gestion allégée.</li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+            <!-- NOUVEAU BLOC : FORMATION & SANTÉ DU SOIGNANT -->
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
+                    <h3 class="font-bold text-yellow-900 mb-3 flex items-center gap-2"><i class="ph ph-graduation-cap text-xl"></i> Formation Continue (DPC)</h3>
+                    <p class="text-xs text-yellow-800 mb-3">Obligation triennale de Développement Professionnel Continu.</p>
+                    <ul class="text-sm text-yellow-900 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="ph ph-check-circle mt-1"></i>
+                            <span><strong>Indemnisation :</strong> L'ANDPC vous indemnise pour perte de revenus pendant la formation (hors congrès).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="ph ph-check-circle mt-1"></i>
+                            <span><strong>Crédit d'impôt :</strong> Jusqu'à 40h de formation par an déductibles en crédit d'impôt dirigeant.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-pink-50 p-6 rounded-xl border border-pink-200">
+                    <h3 class="font-bold text-pink-900 mb-3 flex items-center gap-2"><i class="ph ph-first-aid text-xl"></i> Santé du Soignant</h3>
+                    <p class="text-xs text-pink-800 mb-3">"Qui soigne le soignant ?" - Ne restez pas isolé.</p>
+                    <ul class="text-sm text-pink-900 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="ph ph-heart mt-1"></i>
+                            <span><strong>Médecin Traitant :</strong> 80% des médecins n'en ont pas. Déclarez-en un hors cercle familial.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="ph ph-phone-call mt-1"></i>
+                            <span><strong>Entraide Ordinale :</strong> Numéro vert gratuit 24/7 en cas d'épuisement professionnel (Burn-out).</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
             <!-- PREVENTION -->
             <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-6">
                 <h3 class="font-bold text-indigo-900 mb-2 flex items-center gap-2"><i class="ph ph-smiley text-xl"></i> Équilibre & Prévention</h3>
                 <div class="grid md:grid-cols-3 gap-6 text-sm text-indigo-800">
                     <div>
-                        <strong>Le Remplacement :</strong> Ne restez pas seul. Prenez un remplaçant régulier.
+                        <strong>Le Remplacement :</strong> Ne restez pas seul. Prenez un remplaçant régulier pour vos congés.
                     </div>
                     <div>
-                        <strong>Gestion du Temps :</strong> Déléguez l'administratif.
+                        <strong>Gestion du Temps :</strong> Déléguez l'administratif (Télésecrétariat ou Assistant).
                     </div>
                     <div>
-                        <strong>Entraide :</strong> Rejoignez une CPTS.
+                        <strong>Entraide :</strong> Rejoignez une CPTS pour le travail en réseau local.
                     </div>
                 </div>
             </div>
@@ -863,8 +1014,8 @@
                                     <label class="input-label">Aide CPAM (An 1: 38k€)</label>
                                     <select id="annee_aide" class="input-field" onchange="calculate()">
                                         <option value="38000">Année 1 (38k€)</option>
-                                        <option value="27000">Année 2 (27k€)</option>
-                                        <option value="21000">Année 3+ (21k€)</option>
+                                        <option value="28000">Année 2 (28k€)</option>
+                                        <option value="22000">Année 3+ (22k€)</option>
                                     </select>
                                 </div>
                                 <div class="col-span-2 text-xs text-purple-700 bg-purple-100 p-2 rounded flex justify-between">
@@ -1428,11 +1579,11 @@
                 </div>
             </div>
             <!-- Actions de la checklist -->
-            <div class="mt-8 flex justify-center gap-4">
-                <button onclick="resetChecklist()" class="px-6 py-3 bg-slate-600 text-white rounded-lg font-semibold hover:bg-slate-700 transition">
+            <div class="mt-8 flex justify-center gap-4 flex-wrap">
+                <button onclick="resetChecklist()" class="px-6 py-3 bg-slate-600 text-white rounded-lg font-semibold hover:bg-slate-700 transition flex items-center">
                     <i class="ph ph-arrow-clockwise mr-2"></i>Réinitialiser
                 </button>
-                <button onclick="exportChecklistPDF()" class="px-6 py-3 bg-medical-blue text-white rounded-lg font-semibold hover:bg-blue-700 transition">
+                <button onclick="exportChecklistPDF()" class="px-6 py-3 bg-medical-blue text-white rounded-lg font-semibold hover:bg-blue-700 transition flex items-center">
                     <i class="ph ph-file-pdf mr-2"></i>Exporter PDF
                 </button>
             </div>
@@ -1443,8 +1594,8 @@
       <div class="max-w-7xl mx-auto px-6">
           <div class="flex flex-col md:flex-row justify-between items-center mb-8">
               <div class="mb-6 md:mb-0 text-center md:text-left">
-                  <h3 class="text-white font-bold text-lg">Elodia Tech</h3>
-                  <p class="text-sm text-slate-500">Expertise Médicale & Gestion de Patrimoine.</p>
+                  <img src="https://elodiatech.com/wp-content/uploads/2023/11/elodia-tech-LOGO-B-1536x1152.png" alt="Elodia Tech" class="h-14 w-auto mb-2 mx-auto md:mx-0 brightness-0 invert opacity-90">
+                  <p class="text-sm text-slate-400 font-medium tracking-wide">Ingénierie médicale</p>
               </div>
               <div class="text-center">
                   <p class="text-white font-bold mb-3">Besoin d'un audit personnalisé ?</p>
