@@ -2026,57 +2026,71 @@
         const socialClassique = profitBNC * 0.31; 
         const taxableBNC = profitBNC - socialClassique;
         let irClassique = calculateIR(taxableBNC);
-        // Plafonnement QF/DOM (approx 30% reduction plafonnée mais ici on reste simple)
         const reducDOM = Math.min(irClassique * 0.3, 2450); 
         irClassique -= reducDOM;
         const netClassique = taxableBNC - irClassique;
 
         // --- SCENARIO OPTIMISÉ (SELARL + SPFPL + SCI) ---
         // 1. SCI
-        // Le loyer est une charge pour la SELARL, un produit pour la SCI
-        // Amortissement/Charges SCI estimé à 20%
         const resultatSCI = loyer * 0.8; 
         const isSCI = calculateIS(resultatSCI);
-        const netSCI = resultatSCI - isSCI; // Cash dans la SCI
+        const netSCI = resultatSCI - isSCI; 
 
         // 2. SELARL (TNS)
-        const socialOptim = remun * 0.45; // TNS 45% sur remun nette
-        // Résultat = CA - Charges - Loyer - Remun - Charges Soc - Abondement
+        const socialOptim = remun * 0.45; 
         const profitSELARL = ca - chargesExpl - loyer - remun - socialOptim - abond;
-        // IS avec potentielle ZFU (exo jusqu'à 50k€ de bénéfice)
+        
         let baseIS = profitSELARL;
         if(zfu) baseIS = Math.max(0, baseIS - 50000);
         const isSELARL = calculateIS(baseIS);
-        const netSELARL = profitSELARL - isSELARL; // Remonte en Holding (SPFPL)
+        const netSELARL = profitSELARL - isSELARL; 
 
         // 3. Médecin (Perso)
-        // IR sur rémunération
-        let irOptim = calculateIR(remun * 0.9); // Abattement 10%
-        irOptim -= Math.min(irOptim * 0.3, 2450); // Reduc DOM
+        let irOptim = calculateIR(remun * 0.9); 
+        irOptim -= Math.min(irOptim * 0.3, 2450); 
         
-        // Net Dispo = Net Remun + Net Abondement (CSG ded) + Cash Box (SCI+Holding)
         const netRemun = remun - irOptim;
-        const netAbond = abond * (1 - 0.097); // CSG CRDS sur abondement
+        const netAbond = abond * (1 - 0.097); 
         
-        // Total "Enrichissement" annuel
         const netOptim = netRemun + netAbond + netSELARL + netSCI;
 
         // --- UPDATE UI ---
         const totalFiscal = isSCI + isSELARL + irOptim;
-        
+        const fiscalClassique = irClassique; // Explicitly define here
+
         setOptTxt('opt_td_opt_fiscal', fmtOpt(totalFiscal));
         setOptTxt('opt_td_cla_fiscal', fmtOpt(irClassique));
+        
+        // Gains Table Display Logic
+        const gainFiscal = fiscalClassique - totalFiscal;
+        setOptTxt('opt_td_diff_fiscal', (gainFiscal >= 0 ? "- " : "+ ") + fmtOpt(Math.abs(gainFiscal)));
+        setOptTxt('opt_td_pct_fiscal', (gainFiscal >= 0 ? "-" : "+") + Math.round(Math.abs(gainFiscal/fiscalClassique || 0)*100) + "%");
+
         setOptTxt('opt_td_opt_social', fmtOpt(socialOptim));
         setOptTxt('opt_td_cla_social', fmtOpt(socialClassique));
+        
+        const gainSocial = socialClassique - socialOptim;
+        setOptTxt('opt_td_diff_social', (gainSocial >= 0 ? "- " : "+ ") + fmtOpt(Math.abs(gainSocial)));
+        setOptTxt('opt_td_pct_social', (gainSocial >= 0 ? "-" : "+") + Math.round(Math.abs(gainSocial/socialClassique || 0)*100) + "%");
+        
         setOptTxt('opt_td_opt_net', fmtOpt(netOptim));
         setOptTxt('opt_td_cla_net', fmtOpt(netClassique));
 
-        const gainAnnuel = netOptim - netClassique;
-        setOptTxt('opt_kpi_eco_annuelle', "+ " + fmtOpt(gainAnnuel));
-        // Projection 10 ans avec intérêts composés simplifiés (4% rendement)
+        const gainNet = netOptim - netClassique;
+        setOptTxt('opt_td_diff_net', (gainNet >= 0 ? "+ " : "") + fmtOpt(gainNet));
+        setOptTxt('opt_td_pct_net', (gainNet >= 0 ? "+" : "") + Math.round((gainNet/netClassique || 0)*100) + "%");
+
+        // KPI Cards Display Logic
+        const elKpi1 = document.getElementById('opt_kpi_eco_annuelle');
+        elKpi1.innerText = (gainNet > 0 ? "+ " : "") + fmtOpt(gainNet);
+        elKpi1.className = gainNet >= 0 ? "kpi-value text-green-600" : "kpi-value text-red-600";
+
         let cumule = 0;
-        for(let i=0; i<10; i++) { cumule += gainAnnuel * Math.pow(1.04, i); }
-        setOptTxt('opt_kpi_gain_10ans', "+ " + fmtOpt(cumule));
+        for(let i=0; i<10; i++) { cumule += gainNet * Math.pow(1.04, i); }
+        
+        const elKpi2 = document.getElementById('opt_kpi_gain_10ans');
+        elKpi2.innerText = (cumule > 0 ? "+ " : "") + fmtOpt(cumule);
+        elKpi2.className = cumule >= 0 ? "kpi-value text-blue-600" : "kpi-value text-red-600";
         
         setOptTxt('opt_kpi_taux_retour', Math.round((netOptim / ca) * 100) + "%");
         
